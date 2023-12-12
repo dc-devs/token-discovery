@@ -1,23 +1,41 @@
-import { utilClasses, enums } from '@token-discovery/common';
 import { logTokenPair } from './common/utils';
+import { utilClasses } from '@token-discovery/common';
 
 class TokenPairTracker {
-	start() {
-		const uniswapV2Factory = new utilClasses.UniswapV2Factory();
-		uniswapV2Factory.trackPairCreated();
+	pubSub: utilClasses.PubSub;
 
-		utilClasses.pubSub.on(
-			enums.PubSubEvent.NewTokenPairCreated,
-			({ token0, token1, reserve0, reserve1, pairAddress }) => {
-				logTokenPair({
-					token0,
-					token1,
-					reserve0,
-					reserve1,
-					pairAddress,
-				});
-			},
-		);
+	constructor({ pubSub }: { pubSub: utilClasses.PubSub }) {
+		this.pubSub = pubSub;
+	}
+
+	start() {
+		const uniswapV2Factory = new utilClasses.UniswapV2Factory({
+			pubSub: this.pubSub,
+		});
+
+		uniswapV2Factory.trackPairCreated();
+	}
+
+	logTokenPair({
+		token0,
+		token1,
+		reserve0,
+		reserve1,
+		pairAddress,
+	}: {
+		token0: utilClasses.UniswapV2Erc20;
+		token1: utilClasses.UniswapV2Erc20;
+		reserve0: string;
+		reserve1: string;
+		pairAddress: string;
+	}) {
+		logTokenPair({
+			token0,
+			token1,
+			reserve0,
+			reserve1,
+			pairAddress,
+		});
 	}
 }
 
