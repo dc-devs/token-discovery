@@ -1,1 +1,1 @@
-export { selectNewToken, getCommandLineArguments } from './utils';
+export { selectNewToken, getCommandLineArguments, deepCopy } from './utils';

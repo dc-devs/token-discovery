@@ -1,3 +1,4 @@
+// TODO: Upadate config path
 import 'dotenv/config';
 import { EthereumNetwork } from './enums';
 

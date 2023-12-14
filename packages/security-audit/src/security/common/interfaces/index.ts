@@ -1,0 +1,12 @@
+export { IToken } from './token.interface';
+export { IOwner } from './owner.interface';
+export { IOther } from './other.interface';
+export { IHolder } from './holder.interface';
+export { IResult } from './result.interface';
+export { IAnalysis } from './analysis.interface';
+export { IHolders } from './holders.interface';
+export { ICreator } from './creator.interface';
+export { IDexData } from './dex-data.interface';
+export { IContract } from './contract.interface';
+export { ILiquidityProvider } from './liquidity-provider.interface';
+export { ISecurityAudit } from './security-audit.interface';
