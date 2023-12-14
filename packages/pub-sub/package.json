@@ -1,5 +1,5 @@
 {
-	"name": "@token-discovery/token-tracker",
+	"name": "@token-discovery/pub-sub",
 	"version": "1.0.0",
 	"main": "dist/index.js",
 	"typings": "dist/index.d.ts",
@@ -7,14 +7,10 @@
 	"scripts": {
 		"test": "yarn jest",
 		"build": "rm -rf dist && tsc",
-		"start": "node dist/start.js",
 		"reset": "rm -rf dist && rm -rf node_modules"
 	},
 	"dependencies": {
-		"@token-discovery/pub-sub": "1.0.0",
-		"@token-discovery/types": "1.0.0",
-		"@token-discovery/uniswap": "1.0.0",
-		"ethers": "^6.7.1"
+		"@token-discovery/types": "1.0.0"
 	},
 	"devDependencies": {
 		"@jest/globals": "^29.7.0",

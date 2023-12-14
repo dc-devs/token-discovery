@@ -4,18 +4,19 @@
 	"license": "ISC",
 	"description": "",
 	"version": "1.0.0",
-	"main": "index.js",
+	"main": "dist/index.js",
 	"private": true,
 	"scripts": {
 		"test": "lerna run test",
-		"build": "lerna run build"
+		"build": "lerna run build",
+		"build:clean": "yarn reset && yarn && yarn build",
+		"reset": "lerna run reset && nx reset",
+		"watch": "lerna watch -- lerna run build",
+		"graph": "nx graph --file=output.json"
 	},
 	"workspaces": [
 		"packages/*"
 	],
-	"dependencies": {
-		"ethers": "^6.7.1"
-	},
 	"devDependencies": {
 		"lerna": "^8.0.0"
 	}

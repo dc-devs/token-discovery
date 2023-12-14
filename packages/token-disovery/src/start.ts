@@ -1,13 +1,13 @@
-import { enums, utilClasses } from '@token-discovery/common';
+import { PubSub, PubSubEvent } from '@token-discovery/pub-sub';
 import { TokenPairTracker } from '@token-discovery/token-tracker';
 
-const pubSub = new utilClasses.PubSub();
+const pubSub = new PubSub();
 const tokenPairTracker = new TokenPairTracker({ pubSub });
 
 tokenPairTracker.start();
 
 tokenPairTracker.pubSub.on(
-	enums.PubSubEvent.NewTokenPairCreated,
+	PubSubEvent.NewTokenPairCreated,
 	({ token0, token1, reserve0, reserve1, pairAddress }) => {
 		tokenPairTracker.logTokenPair({
 			token0,

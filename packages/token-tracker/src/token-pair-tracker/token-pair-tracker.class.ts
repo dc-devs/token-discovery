@@ -1,15 +1,17 @@
 import { logTokenPair } from './common/utils';
-import { utilClasses } from '@token-discovery/common';
+import { IErc20 } from '@token-discovery/types';
+import { PubSub } from '@token-discovery/pub-sub';
+import { UniswapV2Factory } from '@token-discovery/uniswap';
 
 class TokenPairTracker {
-	pubSub: utilClasses.PubSub;
+	pubSub: PubSub;
 
-	constructor({ pubSub }: { pubSub: utilClasses.PubSub }) {
+	constructor({ pubSub }: { pubSub: PubSub }) {
 		this.pubSub = pubSub;
 	}
 
 	start() {
-		const uniswapV2Factory = new utilClasses.UniswapV2Factory({
+		const uniswapV2Factory = new UniswapV2Factory({
 			pubSub: this.pubSub,
 		});
 
@@ -23,8 +25,8 @@ class TokenPairTracker {
 		reserve1,
 		pairAddress,
 	}: {
-		token0: utilClasses.UniswapV2Erc20;
-		token1: utilClasses.UniswapV2Erc20;
+		token0: IErc20;
+		token1: IErc20;
 		reserve0: string;
 		reserve1: string;
 		pairAddress: string;

@@ -1,5 +1,5 @@
 {
-	"name": "@token-discovery/token-tracker",
+	"name": "@token-discovery/ethers",
 	"version": "1.0.0",
 	"main": "dist/index.js",
 	"typings": "dist/index.d.ts",
@@ -11,9 +11,7 @@
 		"reset": "rm -rf dist && rm -rf node_modules"
 	},
 	"dependencies": {
-		"@token-discovery/pub-sub": "1.0.0",
-		"@token-discovery/types": "1.0.0",
-		"@token-discovery/uniswap": "1.0.0",
+		"dotenv": "^16.3.1",
 		"ethers": "^6.7.1"
 	},
 	"devDependencies": {

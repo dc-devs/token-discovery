@@ -179,3 +179,9 @@ test.ts
 
 # defi scratch
 defi
+
+# lerna
+output.json
+
+# nx
+.nx

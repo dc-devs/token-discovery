@@ -1,9 +1,9 @@
 import { ethers } from 'ethers';
-import { utilClasses } from '@token-discovery/common';
+import { IErc20 } from '@token-discovery/types';
 
 interface ILogTokenPairOptions {
-	token0: utilClasses.UniswapV2Erc20;
-	token1: utilClasses.UniswapV2Erc20;
+	token0: IErc20;
+	token1: IErc20;
 	pairAddress: string;
 	reserve0: string;
 	reserve1: string;
