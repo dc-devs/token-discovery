@@ -13,22 +13,26 @@ const runDeFiSecurityAudit = async ({ chainId, address }: IOptions) => {
 	const formattedAddress = address.toLowerCase();
 	let adaptedSecurityAudit = generateDefaultSecurityAudit();
 
-	if (deFiClient) {
-		const response = await deFiClient.query({
-			scannerProject: [
-				{
-					where: {
-						chainId: Number(chainId),
-						address: formattedAddress,
+	try {
+		if (deFiClient) {
+			const response = await deFiClient.query({
+				scannerProject: [
+					{
+						where: {
+							chainId: Number(chainId),
+							address: formattedAddress,
+						},
 					},
-				},
-				scannerProjectSchema,
-			],
-		});
+					scannerProjectSchema,
+				],
+			});
 
-		adaptedSecurityAudit = deFiAdapter({ response });
-	} else {
-		throw new Error('DeFi Client failed to initialize');
+			adaptedSecurityAudit = deFiAdapter({ response });
+		} else {
+			throw new Error('DeFi Client failed to initialize');
+		}
+	} catch (error) {
+		console.error(`No DeFi security results: ${error}`);
 	}
 
 	return adaptedSecurityAudit;

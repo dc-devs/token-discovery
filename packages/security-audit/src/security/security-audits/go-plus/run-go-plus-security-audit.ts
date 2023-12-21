@@ -12,25 +12,29 @@ const runGoPlusSecurityAudit = async ({ chainId, address }: IOptions) => {
 	const formattedAddress = address.toLowerCase();
 	let adaptedSecurityAudit = generateDefaultSecurityAudit();
 
-	// It will only return 1 result for the 1st token address if not called getAccessToken before
-	const response = await GoPlus.tokenSecurity(
-		chainId,
-		[formattedAddress],
-		30,
-	);
+	try {
+		// It will only return 1 result for the 1st token address if not called getAccessToken before
+		const response = await GoPlus.tokenSecurity(
+			chainId,
+			[formattedAddress],
+			30,
+		);
 
-	if (response.code != ErrorCode.SUCCESS) {
-		console.error(response.message);
-	} else {
-		const securityResults = response.result[formattedAddress];
-
-		if (securityResults) {
-			adaptedSecurityAudit = goPlusAdapter({
-				securityResults,
-			});
+		if (response.code != ErrorCode.SUCCESS) {
+			console.error(response.message);
 		} else {
-			console.error(ErrorMessage.NoResponse, response);
+			const securityResults = response.result[formattedAddress];
+
+			if (securityResults) {
+				adaptedSecurityAudit = goPlusAdapter({
+					securityResults,
+				});
+			} else {
+				console.error(ErrorMessage.NoResponse, response);
+			}
 		}
+	} catch (error) {
+		console.error(`No GoPlus security results: ${error}`);
 	}
 
 	return adaptedSecurityAudit;

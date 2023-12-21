@@ -6,6 +6,18 @@ import {
 	runGoPlusSecurityAudit,
 } from './security-audits';
 
+interface IFinalResults {
+	token?: ISecurityAudit['token'];
+	purchase?: IAnalysis['purchase'];
+	owner?: ISecurityAudit['owner'];
+	creator?: ISecurityAudit['creator'];
+	dexData?: ISecurityAudit['dexData'];
+	liquidityProvider?: ISecurityAudit['liquidityProvider'];
+	holders?: ISecurityAudit['holders'];
+	other?: ISecurityAudit['other'];
+	risk?: IAnalysis['risk'];
+}
+
 interface IConstructorOptions {
 	chainId: string;
 }
@@ -14,50 +26,10 @@ class Security {
 	chainId: string;
 	finalAnalysis?: IAnalysis;
 	finalSecurityAudit?: ISecurityAudit;
-	finalResults?: Record<string, unknown>;
+	finalResults?: IFinalResults;
 
 	constructor({ chainId }: IConstructorOptions) {
 		this.chainId = chainId;
-	}
-
-	async runGoPlusSecurityAudit({
-		address,
-	}: {
-		address: string;
-	}): Promise<ISecurityAudit> {
-		return await runGoPlusSecurityAudit({
-			address,
-			chainId: this.chainId,
-		});
-	}
-
-	async runDeFiSecurityAudit({
-		address,
-	}: {
-		address: string;
-	}): Promise<ISecurityAudit> {
-		return await runDeFiSecurityAudit({
-			address,
-			chainId: this.chainId,
-		});
-	}
-
-	mergeSecurityAudits({
-		deFi,
-		goPlus,
-	}: {
-		deFi: ISecurityAudit;
-		goPlus: ISecurityAudit;
-	}) {
-		return mergeSecurityAudits({ deFi, goPlus });
-	}
-
-	analyzeSecurityAudit({
-		securityAudit,
-	}: {
-		securityAudit: ISecurityAudit;
-	}): IAnalysis {
-		return analyzeSecurityAudit({ securityAudit });
 	}
 
 	generateFinalResults({
@@ -66,7 +38,7 @@ class Security {
 	}: {
 		finalAnalysis?: IAnalysis;
 		finalSecurityAudit?: ISecurityAudit;
-	}): Record<string, unknown> {
+	}): IFinalResults {
 		const finalResults = {
 			token: finalSecurityAudit?.token,
 			purchase: finalAnalysis?.purchase,
@@ -83,17 +55,22 @@ class Security {
 	}
 
 	async start({ address }: { address: string }) {
-		const goPlusSecurityAudit = await this.runGoPlusSecurityAudit({
+		const goPlusSecurityAudit = await runGoPlusSecurityAudit({
 			address,
+			chainId: this.chainId,
 		});
-		const deFiSecurityAudit = await this.runDeFiSecurityAudit({ address });
 
-		const finalSecurityAudit = this.mergeSecurityAudits({
+		const deFiSecurityAudit = await runDeFiSecurityAudit({
+			address,
+			chainId: this.chainId,
+		});
+
+		const finalSecurityAudit = mergeSecurityAudits({
 			deFi: deFiSecurityAudit,
 			goPlus: goPlusSecurityAudit,
 		});
 
-		const finalAnalysis = this.analyzeSecurityAudit({
+		const finalAnalysis = analyzeSecurityAudit({
 			securityAudit: finalSecurityAudit,
 		});
 
@@ -110,14 +87,18 @@ class Security {
 	}
 
 	displayResults() {
-		console.log(this.finalResults);
-
-		console.log('');
-		console.log('-----------------');
-		console.log('Detailed Risk');
-		console.log('-----------------');
-		console.log(this.finalAnalysis?.purchase);
-		console.log(this.finalAnalysis?.risk);
+		if (
+			this.finalResults?.token?.name &&
+			this.finalAnalysis?.purchase?.isSafe
+		) {
+			console.log(this.finalResults);
+			console.log('');
+			console.log('-----------------');
+			console.log('Detailed Risk');
+			console.log('-----------------');
+			console.log(this.finalAnalysis?.purchase);
+			console.log(this.finalAnalysis?.risk);
+		}
 
 		// if (this.finalAnalysis?.risk?.critical) {
 		// 	Object.keys(this.finalAnalysis?.risk?.critical).forEach(
@@ -136,3 +117,20 @@ class Security {
 export { Security };
 
 // https://de.fi/scanner/contract/0x75c97384ca209f915381755c582ec0e2ce88c1ba?1
+
+// TODO:
+// Add defi honeypot sccanner
+//
+// While scanning seperate:
+// Scam tokens
+// Tokens with no liquidity into (more follow up needed)
+//  -- We are seeing that these tokens are usually copies of tokens that already exist
+// Safe to Buy
+
+// Add twitter search, if finds tokens with same name, maybe mark as duplicate?
+// Use chatGPT to assess sentiment, check for duplicates, etc..
+
+// Defi found: https://de.fi/scanner/contract/0x3c3ec22624019221801d45b0bfe50d0e7cceb862?chainId=eth
+// RugPull Risk.. Do we need add additinoall lliquidity checks as well?
+
+// Most "Safe tokens" so far are duplicates..

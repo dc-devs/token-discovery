@@ -12,7 +12,9 @@
 	},
 	"dependencies": {
 		"@token-discovery/pub-sub": "1.0.0",
-		"@token-discovery/token-tracker": "1.0.0"
+		"@token-discovery/security-audit": "1.0.0",
+		"@token-discovery/token-tracker": "1.0.0",
+		"@token-discovery/utils": "1.0.0"
 	},
 	"devDependencies": {
 		"@jest/globals": "^29.7.0",
