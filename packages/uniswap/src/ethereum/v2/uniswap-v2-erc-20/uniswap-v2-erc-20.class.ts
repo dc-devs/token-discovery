@@ -11,6 +11,8 @@ class UniswapV2Erc20 {
 	address: string;
 	name?: string;
 	symbol?: string;
+	decimals?: string;
+	totalSupply?: string;
 	contract: ethersJs.Contract;
 
 	constructor({ address }: IConstructorOptions) {
@@ -31,9 +33,13 @@ class UniswapV2Erc20 {
 	async init() {
 		const name = await this.contract.name();
 		const symbol = await this.contract.symbol();
+		const decimals = await this.contract.decimals();
+		const totalSupply = await this.contract.totalSupply();
 
 		this.name = name.trim();
 		this.symbol = symbol.trim();
+		this.decimals = decimals.toString();
+		this.totalSupply = totalSupply.toString();
 
 		return this;
 	}

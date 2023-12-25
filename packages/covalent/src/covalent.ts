@@ -9,7 +9,6 @@ config({
 });
 
 const covalent = async () => {
-	console.log(pathToEnv);
 	const covalentApiKey = process.env.COVELENT_API_KEY;
 
 	if (covalentApiKey) {
@@ -19,6 +18,7 @@ const covalent = async () => {
 				'eth-mainnet',
 				'0x4B7F04f7960db235CFB333721F9eE51a5929AB35',
 			);
+
 		console.log(resppnse.data);
 	}
 };

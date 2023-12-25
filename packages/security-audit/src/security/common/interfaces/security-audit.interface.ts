@@ -1,4 +1,3 @@
-import { IToken } from './token.interface';
 import { IOwner } from './owner.interface';
 import { IOther } from './other.interface';
 import { IHolders } from './holders.interface';
@@ -12,7 +11,6 @@ interface ISecurityAudit {
 		| IContract
 		| IHolders
 		| IDexData
-		| IToken
 		| IOther
 		| ILiquidityProvider
 		| IOwner
@@ -20,7 +18,6 @@ interface ISecurityAudit {
 	contract: IContract;
 	holders: IHolders;
 	dexData: IDexData;
-	token: IToken;
 	other: IOther;
 	liquidityProvider: ILiquidityProvider;
 	owner: IOwner;

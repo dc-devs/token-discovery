@@ -23,12 +23,14 @@ const logTokenPair = ({
 	console.log(`Name: ${token0.name}`);
 	console.log(`Symbol: ${token0.symbol}`);
 	console.log(`Adddress: ${token0.address}`);
+	console.log(`Total Supply: ${token0.totalSupply}`);
 	console.log(`Liquidity: ${ethers.formatUnits(reserve0, 'ether')}`);
 	console.log(``);
 	console.log(`Token 1`);
 	console.log(`Name: ${token1.name}`);
 	console.log(`Symbol: $${token1.symbol}`);
 	console.log(`Adddress: ${token1.address}`);
+	console.log(`Total Supply: ${token1.totalSupply}`);
 	console.log(`Liquidity: ${ethers.formatUnits(reserve1, 'ether')}`);
 	console.log(``);
 	console.log('Links:');

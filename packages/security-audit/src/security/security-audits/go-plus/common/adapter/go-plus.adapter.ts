@@ -67,18 +67,15 @@ const goPlusAdapter = ({ securityResults }: IOptions): ISecurityAudit => {
 		is_in_dex,
 		cannot_buy,
 		is_mintable,
-		token_name,
 		lp_holders,
 		is_honeypot,
 		trust_list,
 		holder_count,
-		total_supply,
 		owner_balance,
 		selfdestruct,
 		hidden_owner,
 		owner_percent,
 		owner_address,
-		token_symbol,
 		external_call,
 		is_anti_whale,
 		is_open_source,
@@ -111,12 +108,6 @@ const goPlusAdapter = ({ securityResults }: IOptions): ISecurityAudit => {
 	adaptedSecurityAudit.dexData = {
 		isInDex: is_in_dex === '1',
 		deployedTo: dex,
-	};
-
-	adaptedSecurityAudit.token = {
-		name: token_name,
-		symbol: token_symbol,
-		totalSupply: total_supply,
 	};
 
 	adaptedSecurityAudit.other = {

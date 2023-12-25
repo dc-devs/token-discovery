@@ -107,8 +107,6 @@ const hasTransferFee = ({ key, issues, contract }: IAuditStrategyOptions) => {
 		});
 	}
 
-	console.log(customValue);
-
 	if (hasIssues) {
 		contract[key] = {
 			result: true,

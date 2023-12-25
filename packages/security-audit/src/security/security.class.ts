@@ -7,7 +7,6 @@ import {
 } from './security-audits';
 
 interface IFinalResults {
-	token?: ISecurityAudit['token'];
 	purchase?: IAnalysis['purchase'];
 	owner?: ISecurityAudit['owner'];
 	creator?: ISecurityAudit['creator'];
@@ -40,7 +39,6 @@ class Security {
 		finalSecurityAudit?: ISecurityAudit;
 	}): IFinalResults {
 		const finalResults = {
-			token: finalSecurityAudit?.token,
 			purchase: finalAnalysis?.purchase,
 			owner: finalSecurityAudit?.owner,
 			creator: finalSecurityAudit?.creator,
@@ -87,15 +85,15 @@ class Security {
 	}
 
 	displayResults() {
-		if (this.finalAnalysis?.purchase?.isSafe) {
-			console.log(this.finalResults);
-			console.log('');
-			console.log('-----------------');
-			console.log('Detailed Risk');
-			console.log('-----------------');
-			console.log(this.finalAnalysis?.purchase);
-			console.log(this.finalAnalysis?.risk);
-		}
+		// if (this.finalAnalysis?.purchase?.isSafe) {
+		console.log(this.finalResults);
+		console.log('');
+		console.log('-----------------');
+		console.log('Detailed Risk');
+		console.log('-----------------');
+		console.log(this.finalAnalysis?.purchase);
+		console.log(this.finalAnalysis?.risk);
+		// }
 
 		// if (this.finalAnalysis?.risk?.critical) {
 		// 	Object.keys(this.finalAnalysis?.risk?.critical).forEach(

@@ -26,6 +26,8 @@ tokenPairTracker.pubSub.on(
 			token1,
 		});
 
+		console.log('newTokenAddress', newTokenAddress);
+
 		const { address } = newTokenAddress;
 
 		await security.start({ address });
