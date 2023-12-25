@@ -9,10 +9,6 @@ const hasBlacklist = ({ key, issues, contract }: IAuditStrategyOptions) => {
 		issues,
 	});
 
-	issues.forEach((issue) => {
-		console.log(issue);
-	});
-
 	if (highestImpactIssue) {
 		const values = JSON.parse(highestImpactIssue?.data);
 

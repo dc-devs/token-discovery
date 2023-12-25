@@ -87,10 +87,7 @@ class Security {
 	}
 
 	displayResults() {
-		if (
-			this.finalResults?.token?.name &&
-			this.finalAnalysis?.purchase?.isSafe
-		) {
+		if (this.finalAnalysis?.purchase?.isSafe) {
 			console.log(this.finalResults);
 			console.log('');
 			console.log('-----------------');
